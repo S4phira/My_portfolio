@@ -1,4 +1,4 @@
-$primary-color: #444;
+$primary-color: #555555;
 $secondary-color: yellow;
 $show-home-image:true;
 $home-image: url(../img/background.jpg);
@@ -27,6 +27,90 @@ $background-opaticy: 0.7;
        
     }
 }
+//media query mixins
+@mixin mediaSmall{
+    @media screen and(max-width:500px){
+        @content;
+    }
+}
+@mixin mediaMedium{
+    @media screen and(max-width:768px){
+        @content;
+    }
+}
+@mixin mediaLarge{
+    @media screen and (min-width:769px)and(max-width:1170px){
+        @content;
+    }
+}
+@mixin mediaXLarge{
+    @media screen and(min-width:1171px){
+        @content;
+    }
+}
+//Widescreens
+@include mediaXLarge{
+
+}
+//Deskpopt & Laptops
+@include mediaLarge{
+
+}
+//Tablets & Small laptops
+@include mediaMedium{
+    main{
+        align-items: center;
+        text-align: center;
+
+        .lg-heading{
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+    }
+    ul.menu-nav,div.menu-branding{
+        float: none;
+        width: 100%;
+        min-height: 0;
+         height: 50vh;
+        &.show{
+            transform: translate3d(0,0,0);
+        }
+    }
+    .menu-nav{
+        height: 75hv;
+        transform: translate3d(-100%,0,0);
+        font-size: 24px;
+    }
+    .menu-branding{
+        height: 25hv;
+        transform: translate3d(100%,0,0);
+        
+    }
+    .about-info{
+    ///////////////////////////////////////////
+        grid-template-areas: 
+        'bioimage'
+         'bio'
+          'bio'
+        'job1'
+         'job2'
+          'job3';
+        grid-template-columns: 1fr;
+    
+    }
+
+}
+//Smartphones
+@include mediaSmall{
+    main#home h1{
+        margin-top:10vh;
+    }
+    .projects{
+        grid-template-areas: 1fr;
+    }
+
+}
 *{
     box-sizing: border-box;
 }
@@ -34,11 +118,20 @@ $background-opaticy: 0.7;
 body{
     @include background;
     background: $primary-color;
-    color: #fff;
+    color:set-text-color($primary-color);
     height: 100%;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.5;
+
+}
+//set text color
+@function set-text-color($color){
+    @if (lightness($color)>40){
+        @return black;
+    }@else{
+        @return white;
+    }
 
 }
 //headings
@@ -103,7 +196,7 @@ main{
         width:28px;
         height:3px;
         margin: 0 0 5px 0;
-        background: #fff;
+        background: set-text-color($primary-color);
         @include easeOut;
 
     }
@@ -207,7 +300,7 @@ main{
     text-transform: uppercase;
     padding: 1rem 0;
     font-weight: 300;
-    color: #fff;
+    color: set-text-color($primary-color);
     text-decoration: none;
     @include easeOut();
 
@@ -216,4 +309,111 @@ main{
     }
 }
 
+//about me info
+.about-info{
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas: 
+    'bioimage bio bio'
+    'job1 job2 job3';
+    grid-template-columns: repeat(3, 1fr);
+    .bio-image{
+        grid-area: bioimage;
+        margin: auto;
+        border-radius: 50%;
+        border: $secondary-color 3px solid;
+    }
+    .bio{
+        grid-area: bio;
+        font-size: 1.5rem;
+    }
+    .job-1{
+        grid-area: job1;
+    }
+    .job-2{
+        grid-area: job2;
+    }
+    .job-3{
+        grid-area: job3;
+    }
+    .job{
+        background: lighten($primary-color, 5);
+        padding: 0.5rem;
+        border-bottom: $secondary-color 5px solid;
+    }
+    
+}
 
+
+#main-footer{
+    text-align: center;
+    padding: 1rem;
+    background: darken($primary-color, 10);
+    color: set-text-color($primary-color);
+    height: 60px;
+
+}
+
+//project
+.projects{
+    display: grid;
+    grid-gap:0.7rem;
+    grid-template-columns: repeat(2,1fr);
+    img{
+        width: 100%;
+        border: 3px #b0b0b0;
+        &:hover{
+            opacity: 0.5;
+            border-color: $secondary-color;
+            @include easeOut();
+        }
+    }
+    
+}
+//button styles
+.btn{
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 0;
+    margin-bottom: 0.3rem;
+    &:hover{
+        background: $secondary-color;
+        color: set-text-color($secondary-color);
+    }
+}
+.btn-dark{
+@extend .btn;
+background: darken($primary-color, 20);
+color: #fff;
+}
+.btn-light{
+    @extend .btn;
+    background: lighten($primary-color, 15);
+    color: #333;
+}
+
+//contact page
+.boxes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 1rem;
+
+    div{
+        font-size: 2rem;
+        border: 3px white solid;
+        padding: 1.5rem 2.5rem;
+        margin-bottom: 0.3rem;
+        @include easeOut();
+        &:hover{
+            padding: 0.5em 1.5rem;
+            background: $secondary-color;
+            color: set-text-color($secondary-color);
+            span{
+                color:set-text-color($secondary-color);
+            }
+        }
+    }
+  
+}
