@@ -361,7 +361,7 @@ main{
     grid-template-columns: repeat(2,1fr);
     img{
         width: 100%;
-        border: 3px #b0b0b0;
+        border: 3px #000000;
         &:hover{
             opacity: 0.5;
             border-color: $secondary-color;
@@ -370,6 +370,7 @@ main{
     }
     
 }
+
 //button styles
 .btn{
     display: inline-block;

@@ -362,10 +362,22 @@ main#home h1 {
 
 .projects img {
   width: 100%;
-  border: 3px #b0b0b0;
+  border: 3px #000000;
 }
 
 .projects img:hover {
+  opacity: 0.5;
+  border-color: yellow;
+  -webkit-transition: all 1.0s ease-out;
+  transition: all 1.0s ease-out;
+}
+
+img {
+  width: 100%;
+  border: 3px #000000;
+}
+
+img:hover {
   opacity: 0.5;
   border-color: yellow;
   -webkit-transition: all 1.0s ease-out;
